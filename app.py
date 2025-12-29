@@ -15,7 +15,7 @@ st.markdown("""
     /* Blue Skill Tags */
     .skill-tag {
         background-color: #0077b5;
-        color: white;
+        color: Blue;
         padding: 6px 15px;
         border-radius: 20px;
         margin: 5px;
