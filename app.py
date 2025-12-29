@@ -1,97 +1,92 @@
 import streamlit as st
-import ollama
+from ollama import Client
 from PIL import Image
 
-# 1. Page Configuration
-st.set_page_config(page_title="Professional AI Portfolio", layout="wide")
+# --- PAGE CONFIG ---
+st.set_page_config(page_title="Kiran's AI Portfolio", layout="wide")
 
-# Custom CSS for LinkedIn-style Blue accents
+# --- CUSTOM CSS ---
 st.markdown("""
     <style>
     .skill-tag {
-        background-color: #0077b5;
-        color: white;
-        padding: 5px 12px;
-        border-radius: 15px;
-        margin: 5px;
-        display: inline-block;
-        font-size: 14px;
-        font-weight: bold;
+        background-color: #0077b5; color: white; border-radius: 15px;
+        padding: 5px 12px; margin: 4px; display: inline-block; font-size: 13px;
     }
+    .stChatMessage { border-radius: 15px; }
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# 2. Sidebar Profile Section
+# --- CONFIG: YOUR ZROK URL ---
+# Note: For security, you can move this to Streamlit Secrets later
+ZROK_URL = "https://3ikiu6yq8kt3.share.zrok.io" 
+client = Client(host=ZROK_URL)
+
+# --- SIDEBAR: LinkedIn Style ---
 with st.sidebar:
     try:
-        image = Image.open("profile.jpg")
-        st.image(image, use_container_width=True)
+        st.image("profile.jpg", use_container_width=True)
     except:
-        st.warning("Place 'profile.jpg' in the folder to see your photo.")
-    
-    st.title("Kiran Kumar Tarlada(Kiran)")
-    st.write("🚀 **Solution Arcitect, Senior SRE & Program Manager**")
-    st.write("📍 Hyderabad, India")
-    st.divider()
-    
-    st.subheader("Skills & Expertise")
-    keywords = ["AWS", "Azure", "Terraform", "SRE", "Disaster Recovery", "Program Management"]
-    for kw in keywords:
-        st.markdown(f'<div class="skill-tag">{kw}</div>', unsafe_allow_html=True)
+        st.info("Upload 'profile.jpg' to show your photo.")
+        
+    st.title("Kiran T.")
+    st.write("🚀 **Senior SRE & Program Manager**")
+    st.write("☁️ AWS | Azure | Terraform")
     
     st.divider()
-    st.info("This AI is trained on my specific resume and project history.")
+    st.subheader("Core Expertise")
+    skills = ["AWS", "Azure", "Terraform", "SRE", "Disaster Recovery", "Program Management"]
+    for s in skills:
+        st.markdown(f'<div class="skill-tag">{s}</div>', unsafe_allow_html=True)
+    
+    st.divider()
+    st.caption("AI powered by Llama 3.2 on local M3 Silicon via secure zrok tunnel.")
 
-# 3. Main Chat Interface
-st.header("📄 Resume Insights Chatbot")
-st.caption("Ask me about my experience with cloud migrations, SRE practices, or project leadership.")
+# --- MAIN INTERFACE ---
+st.header("📄 Career Assistant")
 
-# Load Resume Content
+# Load Resume context
 try:
     with open("resume.txt", "r") as f:
-        resume_context = f.read()
+        resume_content = f.read()
 except FileNotFoundError:
-    st.error("Error: 'resume.txt' not found.")
+    st.error("Missing 'resume.txt'. Please add it to the project folder.")
     st.stop()
 
-# Initialize Chat History
+# Chat History
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display Chat History
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
 
-# Handle User Input
-if prompt := st.chat_input("Ex: 'Tell me about your experience with Terraform'"):
+# Chat Input
+if prompt := st.chat_input("Ask me about Kiran's experience..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Generate AI Response from Ollama
     with st.chat_message("assistant"):
         response_placeholder = st.empty()
         full_response = ""
         
-        system_msg = (
-            f"You are a professional recruiting assistant for the candidate described here: {resume_context}. "
-            "Answer questions based on the resume. Be professional, concise, and emphasize the candidate's strengths."
-        )
+        # System instructions
+        system_prompt = f"You are an assistant for Kiran. Answer using this resume ONLY: {resume_content}"
         
-        response = ollama.chat(
-            model='llama3.2', # Ensure you have this model pulled
-            messages=[
-                {'role': 'system', 'content': system_msg},
-                {'role': 'user', 'content': prompt}
-            ],
-            stream=True,
-        )
-
-        for chunk in response:
-            content = chunk['message']['content']
-            full_response += content
-            response_placeholder.markdown(full_response + "▌")
-        
-        response_placeholder.markdown(full_response)
-        st.session_state.messages.append({"role": "assistant", "content": full_response})
+        try:
+            # Note: We use the 'client' we created above with the ZROK_URL
+            response = client.chat(
+                model='llama3.2',
+                messages=[
+                    {'role': 'system', 'content': system_prompt},
+                    {'role': 'user', 'content': prompt}
+                ],
+                stream=True
+            )
+            for chunk in response:
+                full_response += chunk['message']['content']
+                response_placeholder.markdown(full_response + "▌")
+            response_placeholder.markdown(full_response)
+            st.session_state.messages.append({"role": "assistant", "content": full_response})
+        except Exception as e:
+            st.error(f"Mac Offline: Ensure 'zrok share' is running on your MacBook. ({e})")
