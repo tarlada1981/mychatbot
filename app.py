@@ -4,7 +4,7 @@ from PIL import Image
 
 # 1. Page Configuration
 st.set_page_config(
-    page_title="Kiran T. | AI Career Partner", 
+    page_title="Kiran Kumar T. | AI Career Partner", 
     page_icon="🤖", 
     layout="wide"
 )
@@ -113,7 +113,7 @@ with col_chat:
 
 # --- RIGHT COLUMN: GIFs ---
 with col_visuals:
-    st.write("### Featured")
+    st.write("### Projects")
     
     # SRE GIF
     try:
