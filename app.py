@@ -3,85 +3,96 @@ from groq import Groq
 from PIL import Image
 
 # 1. Page Configuration
-st.set_page_config(page_title="Kiran T. | AI Portfolio", page_icon="🚀", layout="wide")
+st.set_page_config(
+    page_title="Kiran T. | AI Portfolio",
+    page_icon="☁️",
+    layout="wide"
+)
 
-# 2. Setup Groq Client (Pulling from Secrets)
+# 2. Setup Groq Client
 try:
     client = Groq(api_key=st.secrets["GROQ_API_KEY"])
-except Exception as e:
-    st.error("Missing GROQ_API_KEY in Streamlit Secrets!")
+except Exception:
+    st.error("⚠️ SRE Alert: GROQ_API_KEY not found in Streamlit Secrets.")
     st.stop()
 
-# 3. Professional Styling
-st.markdown("""
-    <style>
-    .skill-tag {
-        background-color: #0077b5; color: white; border-radius: 20px;
-        padding: 5px 15px; margin: 4px; display: inline-block; font-size: 13px;
-    }
-    .stChatMessage { border-radius: 15px; }
-    </style>
-""", unsafe_allow_html=True)
-
-# 4. Sidebar: Profile
+# 3. Sidebar: Profile & Model Selector
 with st.sidebar:
     try:
         st.image("profile.jpg", use_container_width=True)
     except:
-        st.info("Upload profile.jpg to GitHub to see your photo.")
+        st.info("📷 profile.jpg not found.")
     
-    st.title("Kiran Kumar Tarlada.")
+    st.title("Kiran T.")
     st.write("Senior SRE & Program Manager")
+    
     st.divider()
-    st.subheader("Skills")
-    for s in ["AWS", "Azure", "Terraform", "SRE", "Kubernetes"]:
-        st.markdown(f'<div class="skill-tag">{s}</div>', unsafe_allow_html=True)
+    
+    # --- MODEL SELECTOR DROPDOWN ---
+    st.subheader("🤖 Brain Settings")
+    model_options = {
+        "Llama 3.3 70B (Powerhouse)": "llama-3.3-70b-versatile",
+        "Llama 3.1 8B (Instant)": "llama-3.1-8b-instant",
+        "Llama 3.2 3B (Efficient)": "llama-3.2-3b-preview"
+    }
+    
+    selected_model_name = st.selectbox(
+        "Select AI Model:",
+        options=list(model_options.keys()),
+        index=0,
+        help="Llama 3.3 70B is best for complex logic. 8B is near-instant."
+    )
+    selected_model_id = model_options[selected_model_name]
+    
     st.divider()
-    st.caption("⚡ Powered by Groq (Llama 3.2 11B)")
+    st.caption(f"🟢 Engine: {selected_model_name}")
 
-# 5. Main Logic
-st.header("📄 AI Career Assistant")
-
-# Load Resume
+# 4. Load Resume Context
 try:
     with open("resume.txt", "r") as f:
-        resume_content = f.read()
+        resume_data = f.read()
 except FileNotFoundError:
-    st.error("resume.txt not found in GitHub repository.")
+    st.error("⚠️ resume.txt missing.")
     st.stop()
 
-# Chat History
+# 5. Chat Interface
+st.header("💬 Chat with my Professional AI")
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
-        st.markdown(msg["content"])
+# Display history
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 # User Input
-if prompt := st.chat_input("Ask about Kiran's experience..."):
+if prompt := st.chat_input("Ask me about my SRE experience..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        # System instructions to keep the bot focused on your resume
-        system_prompt = f"You are a helpful assistant for Kiran. Answer questions using this resume: {resume_content}"
-        
+        sys_msg = (
+            f"You are a professional hiring assistant for Kiran. "
+            f"Use this resume to answer: {resume_data}. "
+            "Be professional and concise."
+        )
+
         try:
-            # Groq Cloud Inference
+            # Use the ID from the sidebar selector
             completion = client.chat.completions.create(
-                model="llama-3.2-11b-vision-preview", # High-performance free-tier model
+                model=selected_model_id,
                 messages=[
-                    {"role": "system", "content": system_prompt},
+                    {"role": "system", "content": sys_msg},
                     {"role": "user", "content": prompt}
                 ],
                 stream=True
             )
             
-            # Use Streamlit's built-in streaming display
-            full_response = st.write_stream(completion)
-            st.session_state.messages.append({"role": "assistant", "content": full_response})
+            full_res = st.write_stream(completion)
+            st.session_state.messages.append({"role": "assistant", "content": full_res})
             
         except Exception as e:
-            st.error(f"Cloud Inference Error: {e}")
+            st.error(f"Inference Error: {e}")
+            st.info("Try switching to a different model in the sidebar.")
