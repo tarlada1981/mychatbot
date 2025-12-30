@@ -4,7 +4,7 @@ from PIL import Image
 
 # 1. Page Configuration
 st.set_page_config(
-    page_title="Kiran Kumar T. | AI Career Partner", 
+    page_title="Kiran T. | AI Career Partner", 
     page_icon="🤖", 
     layout="wide"
 )
@@ -29,12 +29,6 @@ st.markdown("""
         font-size: 12px;
         font-weight: 600;
         border: 1px solid #0077b5;
-    }
-    /* Make GIFs fit nicely */
-    .gif-container img {
-        border-radius: 10px;
-        margin-bottom: 20px;
-        width: 100%;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -63,10 +57,10 @@ with st.sidebar:
     selected_model = st.selectbox("AI Brain:", options=list(model_options.keys()))
     model_id = model_options[selected_model]
 
-# 5. Main Layout Columns (Left for Chat, Right for Visuals)
+# 5. Main Layout Columns
 col_chat, col_visuals = st.columns([3, 1], gap="large")
 
-# --- LEFT COLUMN: Chat Interface ---
+# --- LEFT COLUMN: Chat Interface (Modified for Top-Down) ---
 with col_chat:
     st.header("📄 AI Resume Assistant")
     
@@ -81,41 +75,36 @@ with col_chat:
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
-
-    # Helper for streaming
-    def generate_groq_response(response):
-        for chunk in response:
-            if chunk.choices[0].delta.content:
-                yield chunk.choices[0].delta.content
-
+    # --- INPUT AT THE TOP ---
     if prompt := st.chat_input("Ask about Kiran's experience..."):
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
-
-        with st.chat_message("assistant"):
+        # Insert User Message at the TOP of the history
+        st.session_state.messages.insert(0, {"role": "user", "content": prompt})
+        
+        with st.spinner("Thinking..."):
             try:
-                raw_stream = client.chat.completions.create(
+                # Get response from Groq
+                response = client.chat.completions.create(
                     model=model_id,
                     messages=[
                         {"role": "system", "content": f"You are a professional assistant for Kiran. Use this resume: {resume_data}"},
                         {"role": "user", "content": prompt}
                     ],
-                    stream=True
+                    stream=False # Stream=False works best for prepending content to prevent UI flicker
                 )
-                full_response = st.write_stream(generate_groq_response(raw_stream))
-                st.session_state.messages.append({"role": "assistant", "content": full_response})
+                ai_content = response.choices[0].message.content
+                # Insert Assistant Message at the TOP (index 1, below the user message)
+                st.session_state.messages.insert(1, {"role": "assistant", "content": ai_content})
             except Exception as e:
                 st.error(f"Inference Error: {e}")
+
+    # --- DISPLAY MESSAGES (History now shows newest first) ---
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
 
 # --- RIGHT COLUMN: GIFs ---
 with col_visuals:
     st.write("### Projects")
-    
-    # SRE GIF
     try:
         st.image("sre.gif", caption="Site Reliability Engineering", use_container_width=True)
     except:
@@ -123,7 +112,6 @@ with col_visuals:
         
     st.divider()
     
-    # AWS GIF
     try:
         st.image("aws.gif", caption="Cloud Infrastructure", use_container_width=True)
     except:
