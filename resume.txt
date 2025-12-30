@@ -2,15 +2,16 @@
 Full Name: Kiran Kumar Tarlada. 
 Name Meaning: Kiran means Sun in Telugu; Kumar is a traditional South Indian middle name. 
 Surname: Tarlada. 
-Date of Birth: October 6, 1982. 
+Date of Birth: June 10, 1982. 
 Nationality: Indian. 
+Place of Birth: Srikakulam, Andhra Pradesh, India
 Marital Status: Married with one child. 
 Heritage: Asian, Hindu. 
 Religion: Hindu. 
 Ethnicity: Asian. 
 Zodiac Sign: Virgo. 
 Family Structure: Only child. 
-Home City: Hyderabad (Adibatla). 
+Work Location: Hyderabad (Adibatla). 
 Hometown: Srikakulam, Andhra Pradesh, India. 
 Years Lived in Hometown: 18 years before moving for Master's degree. 
 Tradition: Celebrates Pongal in ancestral village. 
@@ -32,14 +33,14 @@ Current Role: Consultant at TATA Consultancy Services (since March 2018).
 Previous Role: Technology Lead at Infosys Technologies Limited (July 2011 – Mar 2018). 
 Previous Role: Infrastructure Engineer at HSBC India Pvt Ltd (Mar 2009 – Jul 2011). 
 First Job: Associate Engineer at CSC India Pvt Ltd in Noida (Jul 2006 – Mar 2009). 
-Expertise Areas: Linux Systems Administration, Multi-Cloud Architecture, CI/CD, and IaC. 
+Expertise Areas: Datacenter Management, Multi-Cloud Architecture, SRE, and IaC. 
 
 [ROLE: SOLUTION ARCHITECT]
-Primary Role: Cloud & Infrastructure Architect and Senior DevOps Engineer. 
+Primary Role: Cloud & Infrastructure Architect. 
 Cloud Platforms: Expert across AWS, GCP, Azure, and OpenStack. 
 Responsibility: Aligned cloud strategy with business goals and security standards. 
 Responsibility: Standardized infrastructure deployments using Infrastructure as Code (IaC). 
-Responsibility: Evaluated technical challenges in networking, compute, and storage. 
+Responsibility: Evaluated technical challenges in datacenter operations, Cloud migrations, Cloud infrastructure deployments. 
 
 [SKILLS: CLOUD SERVICES]
 AWS Skills: EC2, S3, EBS, VPC, ELB, AMI, RDS, SNS, Auto Scaling, Route 53. 
@@ -64,7 +65,7 @@ Monitoring/Logging: Splunk, ELK Stack (Elasticsearch, Logstash, Kibana), Nagios,
 Cloud Monitoring: Prometheus, Grafana, AWS CloudWatch, X-Ray, OpenTelemetry. 
 
 [PROJECT: DISASTER RECOVERY]
-Scope: Led 2-year DR initiative for 200+ enterprise applications. 
+Scope: Led DR initiative for 200+ enterprise applications. 
 Outcome: Transitioned legacy on-prem models to cloud-native Azure Site Recovery (ASR). 
 Technical Detail: Mapped VMware vSphere hosts and SAN storage to Azure targets. 
 Technical Detail: Automated failover sequencing (DB > App > Web) using Azure Runbooks. 
@@ -72,7 +73,7 @@ Technical Detail: Synchronized AD on-prem passwords with Azure using Ping Federa
 Compliance: Met audit standards for encryption at rest (SSE) and transit (TLS 1.2). 
 
 [PROJECT: SRE & RELIABILITY]
-Platform: High-availability AWS platform for Blue Yonder (RedPrairie) WMS. 
+Platform: High-availability AWS platform for Warehouse operations application. 
 Metrics: Achieved 99.9%+ availability and reduced MTTR by over 70%. 
 Automation: Built self-healing infrastructure using Lambda, EventBridge, and Systems Manager. 
 Governance: Established error-budget reliability governance using CloudWatch SLOs. 
