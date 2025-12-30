@@ -12,10 +12,10 @@ st.set_page_config(
 # 2. LinkedIn-Style Professional CSS
 st.markdown("""
     <style>
-    /* Blue Skill Tags */
+    /* Black Skill Tags with White Text */
     .skill-tag {
         background-color: #000000;
-        color: Blue;
+        color: #ffffff;
         padding: 6px 15px;
         border-radius: 20px;
         margin: 5px;
