@@ -31,7 +31,7 @@ st.markdown("""
     }
     /* Sidebar styling */
     section[data-testid="stSidebar"] {
-        background-color: #f3f2ef;
+        background-color: #000000;
     }
     </style>
     """, unsafe_allow_html=True)
