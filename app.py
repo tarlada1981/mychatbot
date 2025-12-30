@@ -46,8 +46,8 @@ with st.sidebar:
     except:
         st.info("📷 profile.jpg not found.")
     
-    st.title("Kiran T.")
-    st.write("🚀 **Senior SRE & Program Manager**")
+    st.title("Kiran Kumar Tarlada.")
+    st.write("🚀 **Solution Architect, Senior SRE & Program Manager**")
     
     st.divider()
     st.subheader("🛠️ Core Competencies")
