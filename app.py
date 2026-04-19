@@ -45,8 +45,16 @@ with st.sidebar:
     
     # --- ADDED: Portfolio Hyperlink Section ---
     st.subheader("🌐 Explore My Work")
-    # REPLACE THE URL BELOW WITH YOUR ACTUAL PORTFOLIO URL
-    st.markdown('https://tarlada1981.github.io/Cloudarchitect/')
+
+# Define the text and the actual portfolio URL
+portfolio_url = "https://tarlada1981.github.io/Cloudarchitect/" # REPLACE with your URL
+link_text = "Click here to visit my detailed portfolio"
+
+# Construct the HTML hyperlink with target="_self"
+same_window_link = f'<a href="{portfolio_url}" target="_self">{link_text}</a>'
+
+# Render using markdown with HTML allowed
+st.markdown(same_window_link, unsafe_allow_html=True)
     # -------------------------------------------
     
     st.divider()
