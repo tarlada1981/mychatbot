@@ -55,7 +55,7 @@ with st.sidebar:
 
     # --- Profile Image ---
     try:
-        st.image("profile.jpg", use_container_width=True)
+        st.image("Kiran1.png", use_container_width=True)
     except:
         st.info("📷 profile.jpg not found.")
     
