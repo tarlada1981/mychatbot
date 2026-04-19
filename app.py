@@ -37,23 +37,25 @@ st.markdown("""
 # 4. Sidebar: Profile & Skills
 with st.sidebar:
     # --- FIXED INDENTATION: Everything below is inside the sidebar block ---
-    back_url = f"https://tarlada1981.github.io/Cloudarchitect/?t={int(time.time())}"
+    back_url = "https://tarlada1981.github.io/Cloudarchitect/"
 
-    back_button_html = f'''
-        <a href="{back_url}" target="_self" style="
-            text-decoration: none; 
-            color: white; 
-            background-color: #4CAF50; 
-            padding: 8px 16px; 
-            border-radius: 5px; 
-            font-weight: bold; 
-            display: inline-block;
-            margin-bottom: 20px;
-            width: 100%;
-            text-align: center;
-        ">⬅ Back to Home</a>
-    '''
-    st.markdown(back_button_html, unsafe_allow_html=True)
+back_button_html = f'''
+    <button onclick="window.location.replace('{back_url}')" style="
+        text-decoration: none; 
+        color: white; 
+        background-color: #4CAF50; 
+        padding: 8px 16px; 
+        border-radius: 5px; 
+        font-weight: bold; 
+        display: inline-block;
+        margin-bottom: 20px;
+        width: 100%;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+    ">⬅ Back to Home</button>
+'''
+st.markdown(back_button_html, unsafe_allow_html=True)
 
     # --- Profile Image ---
     try:
