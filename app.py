@@ -41,11 +41,17 @@ with st.sidebar:
         st.info("📷 profile.jpg not found.")
     
     st.title("Kiran Kumar Tarlada.")
-    st.write("🚀 **Solution Architect, Senior SRE & Program Manager**")
+    st.write("🚀 **20+ years designing fault-tolerant, highly available architectures across AWS and Azure. Specialising in zero-trust security, SRE adoption, platform modernisation, and cost optimisation for global enterprises.**")
+    
+    # --- ADDED: Portfolio Hyperlink Section ---
+    st.subheader("🌐 Explore My Work")
+    # REPLACE THE URL BELOW WITH YOUR ACTUAL PORTFOLIO URL
+    st.markdown('https://tarlada1981.github.io/Cloudarchitect/')
+    # -------------------------------------------
     
     st.divider()
     st.subheader("🛠️ Core Competencies")
-    skills = ["SRE / DevOps", "Cloud (AWS/Azure)", "Terraform", "Kubernetes", "Automation"]
+    skills = ["Datacenter Consolidations","Cloud (AWS/Azure)", "SRE", "Terraform", "Kubernetes", "Automation"]
     for skill in skills:
         st.markdown(f'<div class="skill-tag">{skill}</div>', unsafe_allow_html=True)
     
@@ -56,7 +62,6 @@ with st.sidebar:
     }
     selected_model = st.selectbox("AI Brain:", options=list(model_options.keys()))
     model_id = model_options[selected_model]
-
 # 5. Main Layout Columns
 col_chat, col_visuals = st.columns([3, 1], gap="large")
 
@@ -114,5 +119,11 @@ with col_visuals:
     
     try:
         st.image("aws.gif", caption="Cloud Infrastructure", use_container_width=True)
+    except:
+        st.caption("⚠️ aws.gif not found")
+        st.divider()
+    
+    try:
+        st.image("Azure.png", caption="Cloud Infrastructure", use_container_width=True)
     except:
         st.caption("⚠️ aws.gif not found")
