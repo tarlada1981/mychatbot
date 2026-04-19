@@ -36,24 +36,24 @@ st.markdown("""
 
 # 4. Sidebar: Profile & Skills
 with st.sidebar:
-    # --- ADDED: Back Button ---
-   back_url = f"https://tarlada1981.github.io/Cloudarchitect/?t={int(time.time())}"
+    # --- FIXED INDENTATION: Everything below is inside the sidebar block ---
+    back_url = f"https://tarlada1981.github.io/Cloudarchitect/?t={int(time.time())}"
 
-back_button_html = f'''
-    <a href="{back_url}" target="_self" style="
-        text-decoration: none; 
-        color: white; 
-        background-color: #4CAF50; 
-        padding: 8px 16px; 
-        border-radius: 5px; 
-        font-weight: bold; 
-        display: inline-block;
-        margin-bottom: 20px;
-        width: 100%;
-        text-align: center;
-    ">⬅ Back to Home</a>
-'''
-st.markdown(back_button_html, unsafe_allow_html=True)
+    back_button_html = f'''
+        <a href="{back_url}" target="_self" style="
+            text-decoration: none; 
+            color: white; 
+            background-color: #4CAF50; 
+            padding: 8px 16px; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            display: inline-block;
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        ">⬅ Back to Home</a>
+    '''
+    st.markdown(back_button_html, unsafe_allow_html=True)
 
     # --- Profile Image ---
     try:
@@ -64,7 +64,6 @@ st.markdown(back_button_html, unsafe_allow_html=True)
     st.title("Kiran Kumar Tarlada.")
     st.write("🚀 **Principal Architect: Hybrid Cloud & Infrastructure Transformation**")
     
-    # ... rest of your code ...
     st.subheader("🌐 Explore My Work")
     portfolio_url = "https://tarlada1981.github.io/Cloudarchitect/"
     link_text = "Click here to visit my detailed portfolio"
@@ -84,6 +83,7 @@ st.markdown(back_button_html, unsafe_allow_html=True)
     }
     selected_model = st.selectbox("AI Brain:", options=list(model_options.keys()))
     model_id = model_options[selected_model]
+
 # 5. Main Layout Columns
 col_chat, col_visuals = st.columns([3, 1], gap="large")
 
@@ -123,13 +123,13 @@ with col_chat:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-# --- RIGHT COLUMN: GIFs ---
+# --- RIGHT COLUMN: Visuals ---
 with col_visuals:
     st.write("### Projects")
     try:
         st.image("Azure.png", caption="Azure Site Recovery", use_container_width=True)
     except:
-        st.caption("⚠️ sre.gif not found")
+        st.caption("⚠️ Azure.png not found")
         
     st.divider()
     try:
@@ -138,12 +138,9 @@ with col_visuals:
         st.caption("⚠️ sre.gif not found")
         
     st.divider()
-    
     try:
         st.image("aws.gif", caption="AWS Infrastructure", use_container_width=True)
     except:
         st.caption("⚠️ aws.gif not found")
     
-    st.divider() # Added a divider for visual consistency
-    
-    
+    st.divider()
