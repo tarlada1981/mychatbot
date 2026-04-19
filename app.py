@@ -60,7 +60,7 @@ with st.sidebar:
         st.info("📷 profile.jpg not found.")
     
     st.title("Kiran Kumar Tarlada.")
-    st.write("🚀 **20+ years designing fault-tolerant, highly available architectures across AWS and Azure.**")
+    st.write("🚀 **Principal Architect: Hybrid Cloud & Infrastructure Transformation**")
     
     # ... rest of your code ...
     st.subheader("🌐 Explore My Work")
@@ -71,7 +71,7 @@ with st.sidebar:
     
     st.divider()
     st.subheader("🛠️ Core Competencies")
-    skills = ["Datacenter Consolidations","Cloud (AWS/Azure)", "SRE", "Terraform", "Kubernetes", "Automation"]
+    skills = ["Datacenter Consolidations","Cloud (AWS/Azure)", "SRE", "Terraform", "Ansible", "Automation"]
     for skill in skills:
         st.markdown(f'<div class="skill-tag">{skill}</div>', unsafe_allow_html=True)
     
@@ -125,7 +125,7 @@ with col_chat:
 with col_visuals:
     st.write("### Projects")
     try:
-        st.image("Azure.png", caption="Site Reliability Engineering", use_container_width=True)
+        st.image("Azure.png", caption="Azure Site Recovery", use_container_width=True)
     except:
         st.caption("⚠️ sre.gif not found")
         
