@@ -43,19 +43,12 @@ with st.sidebar:
     st.title("Kiran Kumar Tarlada.")
     st.write("🚀 **20+ years designing fault-tolerant, highly available architectures across AWS and Azure. Specialising in zero-trust security, SRE adoption, platform modernisation, and cost optimisation for global enterprises.**")
     
-    # --- ADDED: Portfolio Hyperlink Section ---
+    # --- FIXED: Indented properly to stay inside the sidebar ---
     st.subheader("🌐 Explore My Work")
-
-# Define the text and the actual portfolio URL
-portfolio_url = "https://tarlada1981.github.io/Cloudarchitect/" # REPLACE with your URL
-link_text = "Click here to visit my detailed portfolio"
-
-# Construct the HTML hyperlink with target="_self"
-same_window_link = f'<a href="{portfolio_url}" target="_self">{link_text}</a>'
-
-# Render using markdown with HTML allowed
-st.markdown(same_window_link, unsafe_allow_html=True)
-    # -------------------------------------------
+    portfolio_url = "https://tarlada1981.github.io/Cloudarchitect/"
+    link_text = "Click here to visit my detailed portfolio"
+    same_window_link = f'<a href="{portfolio_url}" target="_self" style="text-decoration:none; font-weight:bold; color:#0077b5;">{link_text}</a>'
+    st.markdown(same_window_link, unsafe_allow_html=True)
     
     st.divider()
     st.subheader("🛠️ Core Competencies")
@@ -70,14 +63,14 @@ st.markdown(same_window_link, unsafe_allow_html=True)
     }
     selected_model = st.selectbox("AI Brain:", options=list(model_options.keys()))
     model_id = model_options[selected_model]
+
 # 5. Main Layout Columns
 col_chat, col_visuals = st.columns([3, 1], gap="large")
 
-# --- LEFT COLUMN: Chat Interface (Modified for Top-Down) ---
+# --- LEFT COLUMN: Chat Interface ---
 with col_chat:
     st.header("📄 AI Resume Assistant")
     
-    # Load Resume
     try:
         with open("resume.txt", "r") as f:
             resume_data = f.read()
@@ -88,29 +81,24 @@ with col_chat:
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    # --- INPUT AT THE TOP ---
     if prompt := st.chat_input("Ask about Kiran's experience..."):
-        # Insert User Message at the TOP of the history
         st.session_state.messages.insert(0, {"role": "user", "content": prompt})
         
         with st.spinner("Thinking..."):
             try:
-                # Get response from Groq
                 response = client.chat.completions.create(
                     model=model_id,
                     messages=[
                         {"role": "system", "content": f"You are a professional assistant for Kiran. Use this resume: {resume_data}"},
                         {"role": "user", "content": prompt}
                     ],
-                    stream=False # Stream=False works best for prepending content to prevent UI flicker
+                    stream=False 
                 )
                 ai_content = response.choices[0].message.content
-                # Insert Assistant Message at the TOP (index 1, below the user message)
                 st.session_state.messages.insert(1, {"role": "assistant", "content": ai_content})
             except Exception as e:
                 st.error(f"Inference Error: {e}")
 
-    # --- DISPLAY MESSAGES (History now shows newest first) ---
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
@@ -119,6 +107,12 @@ with col_chat:
 with col_visuals:
     st.write("### Projects")
     try:
+        st.image("Azure.png", caption="Site Reliability Engineering", use_container_width=True)
+    except:
+        st.caption("⚠️ sre.gif not found")
+        
+    st.divider()
+    try:
         st.image("sre.gif", caption="Site Reliability Engineering", use_container_width=True)
     except:
         st.caption("⚠️ sre.gif not found")
@@ -126,12 +120,10 @@ with col_visuals:
     st.divider()
     
     try:
-        st.image("aws.gif", caption="Cloud Infrastructure", use_container_width=True)
+        st.image("aws.gif", caption="AWS Infrastructure", use_container_width=True)
     except:
         st.caption("⚠️ aws.gif not found")
-        st.divider()
     
-    try:
-        st.image("Azure.png", caption="Cloud Infrastructure", use_container_width=True)
-    except:
-        st.caption("⚠️ aws.gif not found")
+    st.divider() # Added a divider for visual consistency
+    
+    
