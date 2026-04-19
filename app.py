@@ -1,6 +1,7 @@
 import streamlit as st
 from groq import Groq
 from PIL import Image
+import time
 
 # 1. Page Configuration
 st.set_page_config(
@@ -36,22 +37,23 @@ st.markdown("""
 # 4. Sidebar: Profile & Skills
 with st.sidebar:
     # --- ADDED: Back Button ---
-    back_url = "https://tarlada1981.github.io/Cloudarchitect/"  # Replace with your actual URL
-    back_button_html = f'''
-        <a href="{back_url}" target="_self" style="
-            text-decoration: none; 
-            color: white; 
-            background-color: #4CAF50; 
-            padding: 8px 16px; 
-            border-radius: 5px; 
-            font-weight: bold; 
-            display: inline-block;
-            margin-bottom: 20px;
-            width: 100%;
-            text-align: center;
-        ">⬅ Back to Home</a>
-    '''
-    st.markdown(back_button_html, unsafe_allow_html=True)
+   back_url = f"https://tarlada1981.github.io/Cloudarchitect/?t={int(time.time())}"
+
+back_button_html = f'''
+    <a href="{back_url}" target="_self" style="
+        text-decoration: none; 
+        color: white; 
+        background-color: #4CAF50; 
+        padding: 8px 16px; 
+        border-radius: 5px; 
+        font-weight: bold; 
+        display: inline-block;
+        margin-bottom: 20px;
+        width: 100%;
+        text-align: center;
+    ">⬅ Back to Home</a>
+'''
+st.markdown(back_button_html, unsafe_allow_html=True)
 
     # --- Profile Image ---
     try:
