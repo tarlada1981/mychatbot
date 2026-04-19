@@ -35,15 +35,34 @@ st.markdown("""
 
 # 4. Sidebar: Profile & Skills
 with st.sidebar:
+    # --- ADDED: Back Button ---
+    back_url = "https://tarlada1981.github.io/Cloudarchitect/"  # Replace with your actual URL
+    back_button_html = f'''
+        <a href="{back_url}" target="_self" style="
+            text-decoration: none; 
+            color: white; 
+            background-color: #4CAF50; 
+            padding: 8px 16px; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            display: inline-block;
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        ">⬅ Back to Home</a>
+    '''
+    st.markdown(back_button_html, unsafe_allow_html=True)
+
+    # --- Profile Image ---
     try:
         st.image("profile.jpg", use_container_width=True)
     except:
         st.info("📷 profile.jpg not found.")
     
     st.title("Kiran Kumar Tarlada.")
-    st.write("🚀 **20+ years designing fault-tolerant, highly available architectures across AWS and Azure. Specialising in zero-trust security, SRE adoption, platform modernisation, and cost optimisation for global enterprises.**")
+    st.write("🚀 **20+ years designing fault-tolerant, highly available architectures across AWS and Azure.**")
     
-    # --- FIXED: Indented properly to stay inside the sidebar ---
+    # ... rest of your code ...
     st.subheader("🌐 Explore My Work")
     portfolio_url = "https://tarlada1981.github.io/Cloudarchitect/"
     link_text = "Click here to visit my detailed portfolio"
@@ -63,7 +82,6 @@ with st.sidebar:
     }
     selected_model = st.selectbox("AI Brain:", options=list(model_options.keys()))
     model_id = model_options[selected_model]
-
 # 5. Main Layout Columns
 col_chat, col_visuals = st.columns([3, 1], gap="large")
 
