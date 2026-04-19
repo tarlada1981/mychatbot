@@ -1,7 +1,6 @@
 import streamlit as st
 from groq import Groq
 from PIL import Image
-import time
 
 # 1. Page Configuration
 st.set_page_config(
@@ -36,28 +35,6 @@ st.markdown("""
 
 # 4. Sidebar: Profile & Skills
 with st.sidebar:
-    # Everything inside this block MUST be indented by 4 spaces
-    back_url = "https://tarlada1981.github.io/Cloudarchitect/"
-
-    # JavaScript redirect to prevent "Too Many Redirects" loop
-    back_button_html = f'''
-        <button onclick="window.location.replace('{back_url}')" style="
-            text-decoration: none; 
-            color: white; 
-            background-color: #4CAF50; 
-            padding: 8px 16px; 
-            border-radius: 5px; 
-            font-weight: bold; 
-            display: inline-block;
-            margin-bottom: 20px;
-            width: 100%;
-            text-align: center;
-            border: none;
-            cursor: pointer;
-        ">⬅ Back to Home</button>
-    '''
-    st.markdown(back_button_html, unsafe_allow_html=True)
-
     # --- Profile Image ---
     try:
         st.image("Kiran1.png", use_container_width=True)
@@ -66,12 +43,6 @@ with st.sidebar:
     
     st.title("Kiran Kumar Tarlada.")
     st.write("🚀 **Principal Architect: Hybrid Cloud & Infrastructure Transformation**")
-    
-    st.subheader("🌐 Explore My Work")
-    portfolio_url = "https://tarlada1981.github.io/Cloudarchitect/"
-    link_text = "Click here to visit my detailed portfolio"
-    same_window_link = f'<a href="{portfolio_url}" target="_self" style="text-decoration:none; font-weight:bold; color:#0077b5;">{link_text}</a>'
-    st.markdown(same_window_link, unsafe_allow_html=True)
     
     st.divider()
     st.subheader("🛠️ Core Competencies")
@@ -87,7 +58,7 @@ with st.sidebar:
     selected_model = st.selectbox("AI Brain:", options=list(model_options.keys()))
     model_id = model_options[selected_model]
 
-# 5. Main Layout Columns (These are at the left margin, ending the sidebar block)
+# 5. Main Layout Columns
 col_chat, col_visuals = st.columns([3, 1], gap="large")
 
 # --- LEFT COLUMN: Chat Interface ---
