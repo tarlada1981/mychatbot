@@ -31,7 +31,17 @@ Use this context to answer questions about Kiran's background, skills, experienc
 ---
 
 ## CORE EXPERTISE
-
+###AI Engineering & Operational Innovation 
+- Built a RAG-integrated chatbot to synthesize incident patterns from legacy documentation, conducting TCO and security assessments on licensed LLM providers to finalize the production AI strategy 
+- Proposing a framework for AI Agents to streamline SRE workflows, utilizing Streamlit for rapid prototyping of tools that translate complex system logs into actionable technical insights. 
+- Leading the strategy for AI Transformation & Training, including a roadmap for workshops on AI trends, Prompt Engineering, and the ethical integration of Agentic AI into enterprise operations. 
+- Developing a pilot program for AI-driven observability, evaluating predictive analytics within Dynatrace and AWS to transition from reactive troubleshooting to proactive system health management. 
+###Cloud Cost Optimization 
+- Directed enterprise-wide cloud financial strategy, establishing a clear business case for migration from on-premises to cloud through comprehensive TCO, ROI, and payback period analysis. 
+- Influenced C-level stakeholders by translating complex cloud economics into measurable business outcomes, including cost reduction, agility gains, and risk mitigation. 
+- Championed adoption of FinOps governance models, driving accountability, cost transparency, and continuous optimization across multi-cloud environments. 
+- Led strategic initiatives that shifted organizations from CapEx-heavy datacenter investments to scalable OpEx models, improving financial flexibility and aligning IT spend with business demand. 
+- Delivered sustained business value by enabling 30–40% cost efficiencies, faster time-to-market, and enhanced resilience, positioning cloud as a key driver of enterprise transformation.  
 ### Cloud Architecture
 - AWS (Multi-Account Landing Zones, EC2, S3, Lambda, CloudWatch, Direct Connect, Auto Scaling, ELB, Multi-AZ)
 - Azure (Compute, Storage, Networking, Azure Site Recovery, Azure AD Connect, Azure Monitor)
